@@ -1,0 +1,24 @@
+services:
+  sorteador_app:
+    container_name: sorteador_app
+    build: .
+    ports:
+      -80:5000
+    env_file:
+      - .env
+    depends_on:
+      - sorteador_database
+  
+  sorteador_database:
+    image: postgres
+    container_name: sorteador_database
+    restart: always
+    ports:
+      - 2345:5432
+    env_file:
+      - .env
+    volumes:
+      - postgres:/var/lib/postgresql/data 
+
+  volumes:
+    postgres:
